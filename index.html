@@ -21,22 +21,29 @@
       overflow: hidden;
     }
 
-    /* floating stars */
-    .star {
+    /* ✨ SYMBOL SPARKLES */
+    .sparkle {
       position: fixed;
-      width: 4px;
-      height: 4px;
-      background: #FFD84D;
-      border-radius: 50%;
-      box-shadow: 0 0 6px rgba(255,216,77,0.9);
-      animation: floatStar linear infinite;
-      opacity: 0.8;
+      font-size: 14px;
+      color: rgba(255, 215, 0, 0.8);
+      opacity: 0;
+      animation: sparkleFloat linear forwards;
+      pointer-events: none;
       z-index: 1;
     }
 
-    @keyframes floatStar {
-      from { transform: translateY(110vh); }
-      to { transform: translateY(-10vh); }
+    @keyframes sparkleFloat {
+      0% {
+        transform: translateY(20px) scale(0.6);
+        opacity: 0;
+      }
+      30% {
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(-100px) scale(1);
+        opacity: 0;
+      }
     }
 
     .popup {
@@ -57,10 +64,7 @@
       to { transform: scale(1); opacity: 1; }
     }
 
-    h1 {
-      color: #E6B800;
-      margin-bottom: 10px;
-    }
+    h1 { color: #E6B800; }
 
     p {
       color: #555;
@@ -68,7 +72,6 @@
       margin-bottom: 15px;
     }
 
-    /* SLIDESHOW CENTER FIX */
     .slideshow {
       position: relative;
       width: 100%;
@@ -80,20 +83,15 @@
 
     .slideshow img {
       position: absolute;
-      top: 50%;
-      left: 50%;
+      inset: 0;
       width: 100%;
       height: 220px;
       object-fit: cover;
-      border-radius: 16px;
       opacity: 0;
-      transform: translate(-50%, -50%);
       transition: opacity 1s ease;
     }
 
-    .slideshow img.active {
-      opacity: 1;
-    }
+    .slideshow img.active { opacity: 1; }
 
     .letter {
       background: #FFE066;
@@ -103,119 +101,143 @@
       cursor: pointer;
       box-shadow: 0 10px 20px rgba(255,224,102,0.6);
       color: #6B5200;
-      margin-bottom: 10px;
       animation: pulse 2s infinite;
     }
 
     @keyframes pulse {
-      0% { transform: scale(1); }
       50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
     }
 
-    .letter-content {
+    /* 💌 LETTER MODAL */
+    .letter-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
       display: none;
-      background: #FFFDF3;
-      padding: 18px;
-      border-radius: 16px;
-      margin-top: 10px;
-      font-size: 15px;
-      line-height: 1.6;
-      color: #555;
-      animation: unfold 0.8s ease;
-      max-height: 260px;
-      overflow-y: auto;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
     }
 
-    @keyframes unfold {
-      from { transform: scaleY(0); opacity: 0; }
-      to { transform: scaleY(1); opacity: 1; }
+    .letter-box {
+      background: #FFFDF3;
+      max-width: 420px;
+      width: 90%;
+      padding: 22px;
+      border-radius: 22px;
+      animation: pop 0.5s ease;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      text-align: center;
+      position: relative;
+    }
+
+    .letter-box p {
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .close {
+      margin-top: 12px;
+      font-size: 14px;
+      cursor: pointer;
+      color: #E6B800;
+      font-weight: bold;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- BACKGROUND MUSIC -->
-  <audio id="bgMusic" preload="auto" loop>
-    <source src="dil-tu-jaan-tu.mp3" type="audio/mpeg">
-    Your browser does not support audio
-  </audio>
+<audio id="bgMusic" preload="auto" loop muted>
+  <source src="dil-tu-jaan-tu.mp3" type="audio/mpeg">
+</audio>
 
-  <div class="popup">
-    <h1>🎂 Happy Birthday My Sister 💛</h1>
-    <p>You are my best friend, my safe place, my forever sunshine,
-        my forever favourite singer, my home🌻</p>
+<div class="popup">
+  <h1>🎂 Happy Birthday My Sister 💛</h1>
+  <p>Tap the letter below… there’s something from my heart 💌</p>
 
-    <div class="slideshow">
-      <img src="photo1.jpg" class="active">
-      <img src="photo2.jpg">
-      <img src="photo3.jpg">
-      <img src="photo4.jpg">
-      <img src="photo5.jpg">
-      <img src="photo6.jpg">
-    </div>
-
-    <div class="letter" onclick="openLetter()">💌 Tap to open your letter 💌</div>
-
-    <div class="letter-content" id="letterContent">
-      Hey my love… Yes yes, you are 🫶🏻🥹🤗<br><br>
-      Happy Birthday to my younger self 💛🤗<br><br>
-      Watching you grow has been one of the greatest blessings of my life 🤍🤗<br>
-      Your strength, your kindness, your dreams — they inspire me more than you’ll ever know 💫<br><br>
-      I’m so proud of everything you are and everything you are becoming 🤗💛<br>
-      May every step you take lead you closer to the success you deserve,<br>
-      and may the world always be gentle with your beautiful heart 🌼🤍<br><br>
-      Thank you for being my sister, my safe place, my forever home 🧿🤗<br>
-      No matter how big you grow or how far you go,<br>
-      you’ll always be my little one, my sunshine, my Dil Tu… Jaan Tu 💛
-      🥹🌻🫶🏻
-          HAPPY BIRTHDAY BHAGYASHREE'S BHUMI💌🫂
-      <br><br>
-      🫂
-    </div>
+  <div class="slideshow">
+    <img src="photo1.jpg" class="active">
+    <img src="photo2.jpg">
+    <img src="photo3.jpg">
+    <img src="photo4.jpg">
+    <img src="photo5.jpg">
+    <img src="photo6.jpg">
+    <img src="photo7.jpg">
+    <img src="photo9.jpg">
+    <img src="photo10.jpg">
+    <img src="photo11.jpg">
+    <img src="photo12.jpg">
   </div>
 
-  <script>
-    function openLetter() {
-      document.getElementById("letterContent").style.display = "block";
-      document.querySelector(".letter").style.display = "none";
+  <div class="letter" onclick="openLetter()">💌 Tap to open your letter 💌</div>
+</div>
 
-      const music = document.getElementById("bgMusic");
-      music.muted = false;
-      music.volume = 0.7;
+<!-- 💛 LETTER POPUP -->
+<div class="letter-modal" id="letterModal">
+  <div class="letter-box">
+    <p>
+      Hey my love… Yes yes, you are 🫶🏻<br><br>
+      Happy Birthday to my younger self 💛😭<br><br>
+      Watching you grow has been one of the greatest blessings of my life 🤍🪬<br>
+      Your strength, your kindness, your dreams — they inspire me more than you’ll ever know 💫<br>
+      No matter how big you grow or how far you go you'll always be my little one 🥰<br>
+      Thank you for being my sister,my safe place,my forever favourite singer,my home,my comfort 😙<br><br>
+      ✨ 🌻 ✨<br><br>
+      Once Again Happy Birthday my sunshine,my princess 💛<br><br>
+      You are my home, my comfort, my Dil Tu… Jaan Tu 🫶🏻🌻
+    </p>
+    <div class="close" onclick="closeLetter()">Close 💛</div>
+  </div>
+</div>
 
-      setTimeout(() => {
-        music.play().catch(err => console.log("Audio blocked:", err));
-      }, 300);
+<script>
+  function openLetter() {
+    document.getElementById("letterModal").style.display = "flex";
 
-      launchStars();
-    }
+    const music = document.getElementById("bgMusic");
+    music.muted = false;
+    music.volume = 0.7;
+    music.play();
 
-    /* slideshow */
-    const slides = document.querySelectorAll(".slideshow img");
-    let currentSlide = 0;
+    // extra sparkles when letter opens ✨
+    for (let i = 0; i < 12; i++) createSparkle(true);
+  }
 
-    setInterval(() => {
-      slides[currentSlide].classList.remove("active");
-      currentSlide = (currentSlide + 1) % slides.length;
-      slides[currentSlide].classList.add("active");
-    }, 3000);
+  function closeLetter() {
+    document.getElementById("letterModal").style.display = "none";
+  }
 
-    /* stars */
-    function launchStars() {
-      for (let i = 0; i < 25; i++) {
-        const s = document.createElement("div");
-        s.className = "star";
-        s.style.left = Math.random() * 100 + "vw";
-        s.style.animationDuration = (Math.random() * 6 + 6) + "s";
-        document.body.appendChild(s);
-        setTimeout(() => s.remove(), 12000);
-      }
-    }
+  const slides = document.querySelectorAll(".slideshow img");
+  let current = 0;
+  setInterval(() => {
+    slides[current].classList.remove("active");
+    current = (current + 1) % slides.length;
+    slides[current].classList.add("active");
+  }, 3000);
 
-    setInterval(launchStars, 4000);
-  </script>
+  function createSparkle(nearCenter = false) {
+    const s = document.createElement("div");
+    s.className = "sparkle";
+    s.textContent = "✨";
+
+    s.style.left = nearCenter
+      ? 40 + Math.random() * 20 + "vw"
+      : Math.random() * 100 + "vw";
+
+    s.style.top = nearCenter
+      ? 40 + Math.random() * 20 + "vh"
+      : Math.random() * 100 + "vh";
+
+    s.style.animationDuration = (Math.random() * 4 + 4) + "s";
+
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 7000);
+  }
+
+  // gentle background sparkles
+  setInterval(() => createSparkle(false), 600);
+</script>
 
 </body>
 </html>
