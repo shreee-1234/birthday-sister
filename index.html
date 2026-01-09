@@ -6,7 +6,10 @@
   <title>Happy Birthday My Sister 💛</title>
 
   <style>
-    * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
     body {
       margin: 0;
@@ -18,7 +21,7 @@
       overflow: hidden;
     }
 
-    /* floating magical stars */
+    /* floating stars */
     .star {
       position: fixed;
       width: 4px;
@@ -54,32 +57,43 @@
       to { transform: scale(1); opacity: 1; }
     }
 
-    h1 { color: #E6B800; margin-bottom: 10px; }
-    p { color: #555; font-size: 15px; margin-bottom: 15px; }
+    h1 {
+      color: #E6B800;
+      margin-bottom: 10px;
+    }
 
-    /* slideshow centered */
+    p {
+      color: #555;
+      font-size: 15px;
+      margin-bottom: 15px;
+    }
+
+    /* SLIDESHOW CENTER FIX */
     .slideshow {
       position: relative;
       width: 100%;
       height: 220px;
-      margin: 0 auto 15px auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      margin-bottom: 15px;
       overflow: hidden;
+      border-radius: 16px;
     }
 
     .slideshow img {
       position: absolute;
+      top: 50%;
+      left: 50%;
       width: 100%;
       height: 220px;
       object-fit: cover;
       border-radius: 16px;
       opacity: 0;
+      transform: translate(-50%, -50%);
       transition: opacity 1s ease;
     }
 
-    .slideshow img.active { opacity: 1; }
+    .slideshow img.active {
+      opacity: 1;
+    }
 
     .letter {
       background: #FFE066;
@@ -108,7 +122,7 @@
       font-size: 15px;
       line-height: 1.6;
       color: #555;
-      animation: unfold 1s ease;
+      animation: unfold 0.8s ease;
       max-height: 260px;
       overflow-y: auto;
     }
@@ -119,17 +133,19 @@
     }
   </style>
 </head>
+
 <body>
 
-  <!-- background music (AUTOPLAY ON LETTER OPEN) -->
-  <audio id="bgMusic" loop preload="auto">
+  <!-- BACKGROUND MUSIC -->
+  <audio id="bgMusic" preload="auto" loop>
     <source src="dil-tu-jaan-tu.mp3" type="audio/mpeg">
-    Your browser does not support audio.
+    Your browser does not support audio
   </audio>
 
   <div class="popup">
     <h1>🎂 Happy Birthday My Sister 💛</h1>
-    <p>You are my built-in best friend, my safe place, my forever sunshine ☀️</p>
+    <p>You are my best friend, my safe place, my forever sunshine,
+        my forever favourite singer, my home🌻</p>
 
     <div class="slideshow">
       <img src="photo1.jpg" class="active">
@@ -152,37 +168,47 @@
       and may the world always be gentle with your beautiful heart 🌼🤍<br><br>
       Thank you for being my sister, my safe place, my forever home 🧿🤗<br>
       No matter how big you grow or how far you go,<br>
-      you’ll always be my little one, my sunshine, my Dil Tu… Jaan Tu 💛🤗<br><br>
+      you’ll always be my little one, my sunshine, my Dil Tu… Jaan Tu 💛
+      🥹🌻🫶🏻
+          HAPPY BIRTHDAY BHAGYASHREE'S BHUMI💌🫂
+      <br><br>
       🫂
     </div>
   </div>
 
   <script>
     function openLetter() {
-      document.getElementById('letterContent').style.display = 'block';
-      const music = document.getElementById('bgMusic');
+      document.getElementById("letterContent").style.display = "block";
+      document.querySelector(".letter").style.display = "none";
+
+      const music = document.getElementById("bgMusic");
       music.muted = false;
-      music.play().catch(() => {});
+      music.volume = 0.7;
+
+      setTimeout(() => {
+        music.play().catch(err => console.log("Audio blocked:", err));
+      }, 300);
+
       launchStars();
     }
 
     /* slideshow */
-    const slides = document.querySelectorAll('.slideshow img');
+    const slides = document.querySelectorAll(".slideshow img");
     let currentSlide = 0;
 
     setInterval(() => {
-      slides[currentSlide].classList.remove('active');
+      slides[currentSlide].classList.remove("active");
       currentSlide = (currentSlide + 1) % slides.length;
-      slides[currentSlide].classList.add('active');
+      slides[currentSlide].classList.add("active");
     }, 3000);
 
-    /* magical stars */
+    /* stars */
     function launchStars() {
       for (let i = 0; i < 25; i++) {
-        const s = document.createElement('div');
-        s.className = 'star';
-        s.style.left = Math.random() * 100 + 'vw';
-        s.style.animationDuration = (Math.random() * 6 + 6) + 's';
+        const s = document.createElement("div");
+        s.className = "star";
+        s.style.left = Math.random() * 100 + "vw";
+        s.style.animationDuration = (Math.random() * 6 + 6) + "s";
         document.body.appendChild(s);
         setTimeout(() => s.remove(), 12000);
       }
