@@ -144,20 +144,6 @@ h1 { color: #E6B800; }
 <div class="popup">
   <h1>🎂 Happy Birthday My Sister 💛</h1>
 
-  <!-- 🎵 MUSIC BUTTON (ADDED – NOTHING ELSE CHANGED) -->
-  <button id="playBtn" onclick="startMusic()" style="
-    margin-bottom: 12px;
-    padding: 10px 18px;
-    border: none;
-    border-radius: 20px;
-    background: #E6B800;
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
-  ">
-    🎵 Tap to play song
-  </button>
-
   <div class="slideshow">
     <img src="photo1.jpg" class="active">
     <img src="photo2.jpg">
@@ -208,15 +194,16 @@ h1 { color: #E6B800; }
 <img src="elsa-anna.png" class="sticker">
 
 <script>
-function startMusic() {
+function playMusic() {
   const music = document.getElementById("bgMusic");
   music.volume = 0.7;
-  music.play().catch(() => {});
-  document.getElementById("playBtn").style.display = "none";
+  music.play().catch(()=>{});
 }
 
+// ✅ Letter click opens modal AND plays music
 function openLetter() {
   document.getElementById("letterModal").style.display = "flex";
+  playMusic(); // music starts reliably
   for (let i = 0; i < 10; i++) {
     createSparkle();
     createHeart();
@@ -266,4 +253,5 @@ setInterval(createSparkle, 700);
 
 </body>
 </html>
+
 
