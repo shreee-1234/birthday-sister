@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday My Sister 💛</title>
+
+  <style>
+    * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #FFF1A8, #FFE066);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* floating magical stars */
+    .star {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: #FFD84D;
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(255,216,77,0.9);
+      animation: floatStar linear infinite;
+      opacity: 0.8;
+      z-index: 1;
+    }
+
+    @keyframes floatStar {
+      from { transform: translateY(110vh); }
+      to { transform: translateY(-10vh); }
+    }
+
+    .popup {
+      background: #FFFDF3;
+      width: 90%;
+      max-width: 420px;
+      border-radius: 22px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      animation: pop 0.6s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.6); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    h1 { color: #E6B800; margin-bottom: 10px; }
+    p { color: #555; font-size: 15px; margin-bottom: 15px; }
+
+    /* slideshow centered */
+    .slideshow {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      margin: 0 auto 15px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .slideshow img {
+      position: absolute;
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 16px;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .slideshow img.active { opacity: 1; }
+
+    .letter {
+      background: #FFE066;
+      padding: 16px;
+      border-radius: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(255,224,102,0.6);
+      color: #6B5200;
+      margin-bottom: 10px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .letter-content {
+      display: none;
+      background: #FFFDF3;
+      padding: 18px;
+      border-radius: 16px;
+      margin-top: 10px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #555;
+      animation: unfold 1s ease;
+      max-height: 260px;
+      overflow-y: auto;
+    }
+
+    @keyframes unfold {
+      from { transform: scaleY(0); opacity: 0; }
+      to { transform: scaleY(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- background music (AUTOPLAY ON LETTER OPEN) -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="dil-tu-jaan-tu.mp3" type="audio/mpeg">
+    Your browser does not support audio.
+  </audio>
+
+  <div class="popup">
+    <h1>🎂 Happy Birthday My Sister 💛</h1>
+    <p>You are my built-in best friend, my safe place, my forever sunshine ☀️</p>
+
+    <div class="slideshow">
+      <img src="photo1.jpg" class="active">
+      <img src="photo2.jpg">
+      <img src="photo3.jpg">
+      <img src="photo4.jpg">
+      <img src="photo5.jpg">
+      <img src="photo6.jpg">
+    </div>
+
+    <div class="letter" onclick="openLetter()">💌 Tap to open your letter 💌</div>
+
+    <div class="letter-content" id="letterContent">
+      Hey my love… Yes yes, you are 🫶🏻🥹🤗<br><br>
+      Happy Birthday to my younger self 💛🤗<br><br>
+      Watching you grow has been one of the greatest blessings of my life 🤍🤗<br>
+      Your strength, your kindness, your dreams — they inspire me more than you’ll ever know 💫<br><br>
+      I’m so proud of everything you are and everything you are becoming 🤗💛<br>
+      May every step you take lead you closer to the success you deserve,<br>
+      and may the world always be gentle with your beautiful heart 🌼🤍<br><br>
+      Thank you for being my sister, my safe place, my forever home 🧿🤗<br>
+      No matter how big you grow or how far you go,<br>
+      you’ll always be my little one, my sunshine, my Dil Tu… Jaan Tu 💛🤗<br><br>
+      🫂
+    </div>
+  </div>
+
+  <script>
+    function openLetter() {
+      document.getElementById('letterContent').style.display = 'block';
+      const music = document.getElementById('bgMusic');
+      music.muted = false;
+      music.play().catch(() => {});
+      launchStars();
+    }
+
+    /* slideshow */
+    const slides = document.querySelectorAll('.slideshow img');
+    let currentSlide = 0;
+
+    setInterval(() => {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }, 3000);
+
+    /* magical stars */
+    function launchStars() {
+      for (let i = 0; i < 25; i++) {
+        const s = document.createElement('div');
+        s.className = 'star';
+        s.style.left = Math.random() * 100 + 'vw';
+        s.style.animationDuration = (Math.random() * 6 + 6) + 's';
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 12000);
+      }
+    }
+
+    setInterval(launchStars, 4000);
+  </script>
+
+</body>
+</html>
