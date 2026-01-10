@@ -2,255 +2,280 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>Happy Birthday 💛</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday My Sister 💛</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+body{
+  font-family:'Poppins',sans-serif;
+  overflow:hidden;
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #FFF1A8, #FFE066);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow-x: hidden;
+/* 🌄 FULL SCREEN BACKGROUND SLIDESHOW */
+.slideshow{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+}
+.slideshow img{
+  width:100vw;
+  height:100vh;
+  object-fit:cover;
+  position:absolute;
+  opacity:0;
+  transition:opacity 1.5s ease-in-out;
+}
+.slideshow img.active{opacity:1;}
+
+/* BUTTONS */
+.popup{
+  position:fixed;
+  bottom:25px;
+  left:50%;
+  transform:translateX(-50%);
+  text-align:center;
+  z-index:10;
+}
+.letter{
+  background:#ff69b4;
+  color:white;
+  padding:14px 24px;
+  border-radius:30px;
+  font-size:16px;
+  cursor:pointer;
+  margin:8px 0;
+  box-shadow:0 10px 25px rgba(0,0,0,.35);
 }
 
-/* popup card */
-.popup {
-  background: #FFFDF3;
-  width: 90%;
-  max-width: 420px;
-  border-radius: 22px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-  z-index: 2;
+/* MODALS */
+.letter-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:100;
+}
+.letter-box{
+  background:white;
+  width:90%;
+  max-width:420px;
+  padding:22px;
+  border-radius:24px;
+  text-align:center;
+  max-height:85vh;
+  overflow-y:auto;
+  animation:popup .4s ease;
+}
+@keyframes popup{
+  from{transform:scale(.85);opacity:0}
+  to{transform:scale(1);opacity:1}
 }
 
-h1 {
-  color: #E6B800;
+/* ✨ SOLO IMAGES */
+.magic-img{
+  width:100%;
+  height:260px;
+  object-fit:cover;
+  border-radius:18px;
+  animation:magicZoom 4s ease-in-out infinite;
 }
 
-/* slideshow */
-.slideshow {
-  width: 100%;
-  aspect-ratio: 1/1;
-  position: relative;
-  overflow: hidden;
-  border-radius: 16px;
-  margin-bottom: 15px;
+/* 💛 STORY IMAGE */
+.story-img{
+  width:100%;
+  height:auto;
+  max-height:380px;
+  object-fit:contain;
+  border-radius:18px;
+  margin-bottom:10px;
 }
 
-.slideshow img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 1s ease;
-}
-.slideshow img.active {
-  opacity: 1;
+@keyframes magicZoom{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.06)}
+  100%{transform:scale(1)}
 }
 
-/* letter button */
-.letter {
-  background: #FFE066;
-  padding: 16px;
-  border-radius: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  color: #6B5200;
-  animation: pulse 2s infinite;
+.letter-box p{
+  margin-top:12px;
+  font-size:15px;
+  line-height:1.6;
 }
-@keyframes pulse {
-  50% { transform: scale(1.05); }
+button{
+  background:#ff69b4;
+  border:none;
+  color:white;
+  padding:10px 18px;
+  border-radius:22px;
+  margin-top:14px;
+  cursor:pointer;
 }
-
-/* modal */
-.letter-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-}
-
-.letter-box {
-  background: #FFFDF3;
-  width: 92%;
-  max-width: 450px;
-  max-height: 85vh;
-  padding: 18px;
-  border-radius: 22px;
-  overflow-y: auto;
-  text-align: center;
-}
-
-.close {
-  margin-top: 12px;
-  cursor: pointer;
-  color: #E6B800;
-  font-weight: bold;
-}
-
-/* sparkles */
-.sparkle {
-  position: fixed;
-  font-size: 16px;
-  pointer-events: none;
-  animation: sparkle 4s linear forwards;
-}
-@keyframes sparkle {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(-120px); }
-}
-
-/* hearts */
-.heart {
-  position: fixed;
-  font-size: 18px;
-  pointer-events: none;
-  animation: heart 5s linear forwards;
-}
-@keyframes heart {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(-150px); }
+.close{
+  margin-top:10px;
+  font-size:13px;
+  color:#666;
+  cursor:pointer;
 }
 </style>
 </head>
 
-<body>
+<body onclick="playMusic()">
 
-<!-- 🎵 MUSIC (mobile + GitHub safe) -->
-<audio id="bgMusic" loop muted playsinline preload="auto">
+<!-- 🎵 MUSIC -->
+<audio id="bgMusic" loop>
   <source src="dil-tu-jaan-tu.mp3" type="audio/mpeg">
 </audio>
 
-<!-- ✅ ONLY ONE POPUP -->
-<div class="popup">
-  <h1>🎂 Happy Birthday My Sister 💛</h1>
-
-  <div class="slideshow">
-    <img src="photo1.jpg" class="active">
-    <img src="photo2.jpg">
-    <img src="photo3.jpg">
-    <img src="photo4.jpg">
-    <img src="photo5.jpg">
-    <img src="photo6.jpg">
-    <img src="photo7.jpg">
-  </div>
-
-  <div class="letter" onclick="openLetter()">💌 Tap to open your letter 💌</div>
+<!-- 🌄 SLIDESHOW -->
+<div class="slideshow">
+  <img src="photo1.jpg" class="active">
+  <img src="photo2.jpg">
+  <img src="photo3.jpg">
+  <img src="photo4.jpg">
+  <img src="photo5.jpg">
 </div>
 
-<!-- LETTER MODAL -->
+<!-- 🎁 BUTTONS -->
+<div class="popup">
+  <div class="letter" onclick="openLetter()">💌 Open Letter</div>
+  <div class="letter" onclick="openSolo()">🎁 A Surprise Just for You 🎁</div>
+  <div class="letter" onclick="openStory()">💖 Our Love Story</div>
+</div>
+
+<!-- 💌 LETTER -->
 <div class="letter-modal" id="letterModal">
   <div class="letter-box">
+    <p id="letterText"></p>
+    <button onclick="nextMessage()">Next 💛</button>
+    <div class="close" onclick="closeLetter()">Close ✨</div>
+  </div>
+</div>
 
-    <div class="slideshow">
-      <img src="photo1.jpg" class="active">
-      <img src="photo2.jpg">
-      <img src="photo3.jpg">
-      <img src="photo4.jpg">
-      <img src="photo5.jpg">
-      <img src="photo6.jpg">
-      <img src="photo7.jpg">
-      <img src="photo8.jpg">
-      <img src="photo9.jpg">
-      <img src="photo10.jpg">
-      <img src="photo11.jpg">
-      <img src="photo12.jpg">
-    </div>
+<!-- 🎁 SOLO -->
+<div class="letter-modal" id="soloModal">
+  <div class="letter-box">
+    <img id="soloImg" class="magic-img">
+    <p id="soloMsg"></p>
+    <button onclick="nextSolo()">Next 💛</button>
+    <div class="close" onclick="closeSolo()">Close ✨</div>
+  </div>
+</div>
 
-   <p>
-   Hey my love… Yes yes, you are 🫶🏻<br><br>
-
-   Happy Birthday to my younger self,my princess! 💛😭<br><br>
-
-   Watching you grow has been one of the greatest blessings of my life since you have entered in my life 🤍🪬<br>
-
-   Your strength, your kindness, your dreams — they inspire me more than you’ll ever know 💫<br><br>
-
-   No matter how big you grow or how far you go, you’ll always be my little one 🥰<br><br>
-
-   Thank you for being my sister, my safe place, my forever favourite singer, my home, my comfort 😙<br><br>
-
-   Once again Happy Birthday my sunshine, my princess 💛<br><br>
-
-  Y ou are my home, my comfort, my Dil Tu… Jaan Tu 🫶🏻🌻
-</p>
-
-
-    <div class="close" onclick="closeLetter()">Close 💛</div>
+<!-- 💖 STORY -->
+<div class="letter-modal" id="storyModal">
+  <div class="letter-box">
+    <img id="storyImg" class="story-img">
+    <p id="storyMsg"></p>
+    <button onclick="nextStory()">Next 💖</button>
+    <div class="close" onclick="closeStory()">Close ✨</div>
   </div>
 </div>
 
 <script>
-/* 🔥 LETTER CLICK = SOUND START (MOBILE FIX) */
-function openLetter() {
-  const music = document.getElementById("bgMusic");
-  document.getElementById("letterModal").style.display = "flex";
+/* SLIDESHOW */
+let slideIndex=0;
+const slides=document.querySelectorAll(".slideshow img");
+setInterval(()=>{
+  slides[slideIndex].classList.remove("active");
+  slideIndex=(slideIndex+1)%slides.length;
+  slides[slideIndex].classList.add("active");
+},3000);
 
-  music.muted = false;
-  music.volume = 0.8;
-  music.currentTime = 0;
-  music.play();
-
-  for (let i = 0; i < 8; i++) {
-    sparkle();
-    heart();
+/* 🎵 MUSIC FIX (IMPORTANT) */
+let musicPlayed=false;
+function playMusic(){
+  if(!musicPlayed){
+    const music=document.getElementById("bgMusic");
+    music.play().catch(()=>{});
+    musicPlayed=true;
   }
 }
 
-function closeLetter() {
-  document.getElementById("letterModal").style.display = "none";
-}
+/* LETTER */
+const messages=[
+ "Hey my love 🫶🏻",
+ "Happy Birthday to my little sister, my forever baby 💛",
+ "Watching you grow has been the most beautiful journey of my life 🤍",
+ "Your smile heals me, your strength inspires me ✨",
+ "No matter how old you get, you’ll always be my little one 🥰",
+ "I’ll always protect you, today and forever 🫂",
+ "You are my Dil Tu… Jaan Tu 💫"
+];
+let msgIndex=0;
 
-/* slideshow */
-document.querySelectorAll(".slideshow").forEach(slideshow => {
-  const imgs = slideshow.querySelectorAll("img");
-  let i = 0;
-  setInterval(() => {
-    imgs[i].classList.remove("active");
-    i = (i + 1) % imgs.length;
-    imgs[i].classList.add("active");
-  }, 3000);
-});
-
-/* effects */
-function sparkle() {
-  const s = document.createElement("div");
-  s.className = "sparkle";
-  s.innerText = "✨";
-  s.style.left = Math.random() * 100 + "vw";
-  s.style.top = Math.random() * 100 + "vh";
-  document.body.appendChild(s);
-  setTimeout(() => s.remove(), 4000);
+function openLetter(){
+  msgIndex=0;
+  letterModal.style.display="flex";
+  letterText.innerText=messages[msgIndex];
 }
-
-function heart() {
-  const h = document.createElement("div");
-  h.className = "heart";
-  h.innerText = Math.random() > 0.5 ? "💛" : "💙";
-  h.style.left = Math.random() * 100 + "vw";
-  h.style.top = "80vh";
-  document.body.appendChild(h);
-  setTimeout(() => h.remove(), 5000);
+function nextMessage(){
+  msgIndex++;
+  if(msgIndex>=messages.length) closeLetter();
+  else letterText.innerText=messages[msgIndex];
 }
+function closeLetter(){ letterModal.style.display="none"; }
+
+/* SOLO */
+const soloData=[
+ {img:"solo/solo1.jpg",msg:"This smile is my safe place 💛"},
+ {img:"solo/solo2.jpg",msg:"You glow differently when you’re happy ✨"},
+ {img:"solo/solo3.jpg",msg:"Strong, kind and beautifully you 🤍"},
+ {img:"solo/solo4.jpg",msg:"No matter where life takes you, I’m right here 🫂"},
+ {img:"solo/solo5.jpg",msg:"My little sister, my forever blessing 👑💛"},
+ {img:"solo/solo6.jpg",msg:"You are my sunshine ☀️ and I love you the most 💛💛"}
+];
+let soloIndex=0;
+
+function openSolo(){
+  soloIndex=0;
+  soloModal.style.display="flex";
+  showSolo();
+}
+function showSolo(){
+  soloImg.src=soloData[soloIndex].img;
+  soloMsg.innerText=soloData[soloIndex].msg;
+}
+function nextSolo(){
+  soloIndex++;
+  if(soloIndex>=soloData.length) closeSolo();
+  else showSolo();
+}
+function closeSolo(){ soloModal.style.display="none"; }
+
+/* STORY */
+const storyData=[
+ {img:"story/begin.jpg",msg:"All it started 💫\n14/11/17 🤍"},
+ {img:"story/love1.jpg",msg:"All it started again 💛\n26/6/22 ✨"},
+ {img:"story/love2.jpg",msg:"Finally we met 🫶🏻\n10/7/22 🤍"},
+ {img:"story/family.jpg",msg:"This is our small family 💛\nShree, Yash & Prajval love you the most, our Aastha 🥹🫂🫶🏻"}
+];
+let storyIndex=0;
+
+function openStory(){
+  storyIndex=0;
+  storyModal.style.display="flex";
+  showStory();
+}
+function showStory(){
+  storyImg.src=storyData[storyIndex].img;
+  storyMsg.innerText=storyData[storyIndex].msg;
+}
+function nextStory(){
+  storyIndex++;
+  if(storyIndex>=storyData.length) closeStory();
+  else showStory();
+}
+function closeStory(){ storyModal.style.display="none"; }
 </script>
 
 </body>
 </html>
-
 
 
